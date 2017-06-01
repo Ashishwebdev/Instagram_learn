@@ -1,7 +1,10 @@
+
 <% @posts.each do |x|%>
 <div class="white">
   <%= image_tag x.image.url(:medium) %>
   <br>
 <%= x.description%>
+  <%= link_to 'Edit', edit_post_path(x) %>
+  <%= link_to 'Destroy', x, method: :delete, data: { confirm: 'Are you sure?' } %>
 </div>
 <% end %>

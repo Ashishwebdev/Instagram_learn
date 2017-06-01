@@ -14,6 +14,7 @@ class PostsController < ApplicationController
   def create
   @post = Post.new(permit_post)
   if @post.save
+
     flash[:success] = "Success!"
     redirect_to post_path(@post)
   else
@@ -23,6 +24,18 @@ class PostsController < ApplicationController
   end
   end
 
+  def edit
+    @post = Post.find(params[:id])
+  end
+
+  def destroy
+    @post = Post.find(params[:id])
+    @post.destroy
+    respond_to do |format|
+      format.html { redirect_to posts_url, notice: 'Article was successfully destroyed.' }
+      format.json { head :no_content }
+    end
+  end
   private
   def permit_post
     params.require(:post).permit(:image,:description)
